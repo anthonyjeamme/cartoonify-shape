@@ -1,0 +1,25 @@
+.Renderer {
+  background-color: #eeeeee;
+  padding: 20px 0;
+  border-radius: 20px;
+
+  & > .params {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .label {
+      margin-right: 10px;
+      color: #0a1118;
+    }
+  }
+
+  & > .container {
+    display: flex;
+    justify-content: center;
+    & > svg {
+      background-color: white;
+    }
+  }
+}

@@ -1,0 +1,42 @@
+.AddEffectDropdown {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(100% + 10px);
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #0a1118;
+  color: white;
+
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(-10px);
+
+  display: flex;
+  gap: 20px;
+
+  & > div {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    & > button {
+      width: 100%;
+      border: 1px solid rgba(white, 0.1);
+      background-color: transparent;
+      color: white;
+      height: 40px;
+      border-radius: 4px;
+      text-align: left;
+      padding: 0 15px;
+    }
+  }
+
+  &.active {
+    opacity: 1;
+    transform: none;
+    transition: transform 250ms, opacity 150ms;
+    pointer-events: all;
+  }
+}

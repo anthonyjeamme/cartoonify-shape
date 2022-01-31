@@ -1,0 +1,31 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700;800;900&display=swap");
+
+body {
+  margin: 0;
+  background-color: #40739e;
+  color: #0a1118;
+  color: white;
+  font-family: "Rubik", sans-serif;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+button,
+input,
+textarea {
+  font-family: "Rubik", sans-serif;
+  font-weight: 600;
+  font-size: inherit;
+  outline: none;
+}
+
+button {
+  cursor: pointer;
+  color: #0a1118;
+}
+
+input {
+  border: 0;
+  border-radius: 4px;
+  padding: 8px 12px;
+}

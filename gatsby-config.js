@@ -1,3 +1,19 @@
+const jsconfig = require("./jsconfig.json")
+
+const getGatsbyPluginAliases = () => {
+  if (!jsconfig.compilerOptions || !jsconfig.compilerOptions.paths) return {}
+
+  return Object.entries(jsconfig.compilerOptions.paths)
+    .map(([alias, paths]) => ({
+      alias: alias.replace("/*", ""),
+      path: `${__dirname}/${paths[0].replace("/*", "")}`,
+    }))
+    .reduce((acc, cur) => {
+      acc[cur.alias] = cur.path
+      return acc
+    }, {})
+}
+
 module.exports = {
   siteMetadata: {
     title: `Gatsby Default Starter`,
@@ -31,6 +47,15 @@ module.exports = {
         icon: `src/images/gatsby-icon.png`, // This path is relative to the root of the site.
       },
     },
+    {
+      resolve: `gatsby-plugin-alias-imports`,
+      options: {
+        alias: getGatsbyPluginAliases(),
+        extensions: ["js", "scss"],
+      },
+    },
+
+    `gatsby-plugin-sass`,
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,
