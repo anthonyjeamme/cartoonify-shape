@@ -2,6 +2,7 @@ import React from "react"
 import { baseShapes } from "~data/baseShapes"
 import { TShape } from "~utils/shape/Shape.types"
 import { baseShapeParamDefinitionToParam } from "~utils/shape/Shape.utils"
+import CustomShape from "../CustomShape/CustomShape"
 
 import "./BasicShapes.scss"
 
@@ -14,6 +15,18 @@ const BasicShapes = ({ baseShape, setBaseShape }) => {
 
       {baseShape && (
         <ShapeParams baseShape={baseShape} setBaseShape={setBaseShape} />
+      )}
+
+      {baseShape?.name === "custom" && (
+        <CustomShape
+          points={baseShape.points}
+          setPoints={points => {
+            setBaseShape({
+              ...baseShape,
+              points,
+            })
+          }}
+        />
       )}
     </div>
   )
@@ -47,6 +60,18 @@ const ShapeSelector = ({ baseShape, setBaseShape }) => {
           {baseShapeDefinition.label}
         </button>
       ))}
+      <button
+        className={baseShape?.name === "custom" ? "active" : ""}
+        onClick={() => {
+          setBaseShape({
+            name: "custom",
+            params: {},
+            points: [],
+          })
+        }}
+      >
+        Custom
+      </button>
     </div>
   )
 }

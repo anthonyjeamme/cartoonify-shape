@@ -1,6 +1,15 @@
 import React, { useRef, useState } from "react"
 
-import { ArrowDown, ArrowUp, CaretDown, Plus, Trash } from "phosphor-react"
+import {
+  ArrowDown,
+  ArrowUp,
+  CaretDown,
+  Eye,
+  EyeClosed,
+  EyeSlash,
+  Plus,
+  Trash,
+} from "phosphor-react"
 
 import { useClickOutside } from "@ajeamme/use-click-outside"
 
@@ -79,6 +88,8 @@ const Effect = ({
 }: TEffectComponentProps) => {
   const [isExpanded, setIsExpanded] = useState(true)
 
+  console.log(effect)
+
   return (
     <div className="Effect">
       <header>
@@ -95,6 +106,17 @@ const Effect = ({
           {effect.definition.label}
         </div>
         <div>
+          <button
+            className="icon"
+            onClick={() => {
+              handleChange({
+                ...effect,
+                enabled: !effect.enabled,
+              })
+            }}
+          >
+            {effect.enabled ? <Eye /> : <EyeSlash />}
+          </button>
           <button className="icon" onClick={handleMoveUp}>
             <ArrowUp />
           </button>
@@ -123,7 +145,7 @@ const EffectInputs = ({
   const inputs = Object.values(effect.definition.inputs)
 
   return (
-    <div>
+    <div className="EffectInputs">
       {inputs.map(input =>
         input.type === "number" ? (
           <NumberParam
@@ -169,12 +191,30 @@ const NumberParam = ({ input, effect, handleChange }) => (
 )
 
 const SelectParam = ({ input, effect, handleChange }) => {
-  console.log(input.options)
+  const value = effect.inputs[input.name]
 
   return (
     <div>
       {input.label} :
-      <select
+      <div className="select">
+        {input.options.map(option => (
+          <button
+            className={option.value === value ? "active" : ""}
+            onClick={() => {
+              handleChange({
+                ...effect,
+                inputs: {
+                  ...effect.inputs,
+                  [input.name]: option.value,
+                },
+              })
+            }}
+          >
+            {option.label}
+          </button>
+        ))}
+      </div>
+      {/* <select
         value={effect.inputs[input.name]}
         onChange={e => {
           const { value } = e.target
@@ -193,7 +233,7 @@ const SelectParam = ({ input, effect, handleChange }) => {
             {option.label}
           </option>
         ))}
-      </select>
+      </select> */}
     </div>
   )
 }

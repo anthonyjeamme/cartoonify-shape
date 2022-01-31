@@ -28,9 +28,10 @@ const Editor = () => {
     let points = baseShape.points
 
     for (const effect of effects) {
-      points = roundPoints(
-        effect.definition.apply(points, effect.inputs, seed + effect.id)
-      )
+      if (effect.enabled)
+        points = roundPoints(
+          effect.definition.apply(points, effect.inputs, seed + effect.id)
+        )
     }
 
     setPoints(points)

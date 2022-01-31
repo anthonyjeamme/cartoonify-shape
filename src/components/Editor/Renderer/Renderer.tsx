@@ -1,8 +1,13 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
-import { TRendererComponent } from "./Renderer.types"
+import { TRendererComponent, TViewport } from "./Renderer.types"
 
-import { pointsToPath } from "./Renderer.utils"
+import {
+  computeViewPort,
+  pointsToPath,
+  translatePointsToZero,
+  viewPortToSVGViewbox,
+} from "./Renderer.utils"
 import Point from "~utils/math/Point/Point"
 
 import "./Renderer.scss"
@@ -10,8 +15,15 @@ import "./Renderer.scss"
 const Renderer: TRendererComponent = ({ points }) => {
   const [color, setColor] = useState("#333333")
   const [viewPoints, setViewPoints] = useState(false)
+  const [zoom, setZoom] = useState(1)
 
-  const centeredPoints = points.map(({ x, y }) => Point.new(x, y + 50))
+  const [viewPort, setViewPort] = useState<TViewport>(computeViewPort(points))
+
+  const centeredPoints = translatePointsToZero(points)
+
+  useEffect(() => {
+    setViewPort(computeViewPort(centeredPoints))
+  }, [points])
 
   return (
     <div className="Renderer">
@@ -35,10 +47,26 @@ const Renderer: TRendererComponent = ({ points }) => {
             setViewPoints(!viewPoints)
           }}
         />
+
+        <span className="label">Zoom</span>
+        <select
+          value={zoom}
+          onChange={e => {
+            setZoom(parseInt(e.target.value, 10))
+          }}
+        >
+          <option value={1}>x1</option>
+          <option value={2}>x2</option>
+          <option value={3}>x3</option>
+        </select>
       </div>
 
       <div className="container">
-        <svg viewBox="0 0 100 200" height={200 * 2} width={400 * 2}>
+        <svg
+          viewBox={viewPortToSVGViewbox(viewPort)}
+          height={viewPort.height * zoom}
+          width={viewPort.width * zoom}
+        >
           <path
             fill={color}
             stroke={color}

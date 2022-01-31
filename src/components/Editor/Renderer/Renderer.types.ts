@@ -7,3 +7,12 @@ type TRendererProps = {
   showPoints?: boolean
   points: TPoint[]
 }
+
+export type TViewport = {
+  top: number
+  left: number
+  right: number
+  bottom: number
+  width: number
+  height: number
+}

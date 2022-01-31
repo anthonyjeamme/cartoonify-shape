@@ -14,4 +14,20 @@ export const baseShapeParamDefinitionToParam = (
 }
 
 export const roundPoints = (points: TPoint[]) =>
-  points.map(({ x, y }) => Point.new(Math.round(x), Math.round(y)))
+  cleanDuplicatePoints(
+    points.map(({ x, y }) => Point.new(Math.round(x), Math.round(y)))
+  )
+
+export const cleanDuplicatePoints = (points: TPoint[]) => {
+  const result: TPoint[] = []
+
+  let previousPoint = points[points.length - 1]
+
+  for (const point of points) {
+    if (!Point.eq(previousPoint, point)) {
+      result.push(point)
+      previousPoint = point
+    }
+  }
+  return result
+}

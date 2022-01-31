@@ -19,6 +19,26 @@ export const subdiviseEffect: TEffectDefinition = {
       name: "minlength",
       type: "number",
     },
+    {
+      label: "Direction",
+      name: "direction",
+      type: "select",
+      defaultValue: "both",
+      options: [
+        {
+          label: "Both",
+          value: "both",
+        },
+        {
+          label: "Inside",
+          value: "inside",
+        },
+        {
+          label: "Outside",
+          value: "outside",
+        },
+      ],
+    },
   ],
   apply: (points, inputs, seed) => {
     //
@@ -41,11 +61,14 @@ export const subdiviseEffect: TEffectDefinition = {
 }
 
 const subdiviseLine = (A: TPoint, B: TPoint, seed: string, inputs) => {
-  const { deviation, minlength } = inputs
+  const { deviation, minlength, direction } = inputs
   const points = []
 
   const pointPosition = seedRandom(seed + "p") / 2 + 0.25
-  const pointDeviation = (seedRandom(seed + "d") - 0.5) * 2
+
+  const pointDeviation =
+    (seedRandom(seed + "p2") - (direction === "both" ? 0.5 : 0)) *
+    (direction === "both" ? 2 : direction === "inside" ? -1 : 1)
 
   const ABVector = Vector.fromPoints(A, B)
   const length = Vector.length(ABVector)

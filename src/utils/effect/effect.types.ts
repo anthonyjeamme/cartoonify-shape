@@ -5,6 +5,7 @@ export type TEffect = {
   inputs: {
     [name: string]: number
   }
+  enabled: boolean
   definition: TEffectDefinition
 }
 

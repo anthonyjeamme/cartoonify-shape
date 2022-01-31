@@ -7,6 +7,12 @@
     background-color: white;
     color: #0a1118;
     margin-bottom: 20px;
+    font-weight: 400;
+    font-size: 18px;
+
+    input {
+      border: 1px solid rgba(#0a1118, 0.1);
+    }
 
     & > header {
       display: flex;
@@ -53,6 +59,38 @@
 
     & > .panel {
       margin-top: 20px;
+    }
+  }
+
+  .EffectInputs {
+    .select {
+      display: flex;
+      & > button {
+        border-radius: 0;
+        border: 0;
+        height: 40px;
+        padding: 0 10px;
+        border: 1px solid rgba(#0a1118, 0.1);
+        border-left-width: 0;
+        border-right-width: 0;
+        font-weight: 500;
+        font-size: 18px;
+
+        &.active {
+          background-color: #40739e;
+          color: white;
+        }
+
+        &:nth-child(1) {
+          border-radius: 5px 0 0 5px;
+          border-left-width: 1px;
+        }
+
+        &:nth-last-child(1) {
+          border-radius: 0 5px 5px 0;
+          border-right-width: 1px;
+        }
+      }
     }
   }
 

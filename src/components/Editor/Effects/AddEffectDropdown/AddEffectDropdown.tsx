@@ -39,4 +39,5 @@ const createEffectFromDefinition = (
     return acc
   }, {}),
   definition,
+  enabled: true,
 })
