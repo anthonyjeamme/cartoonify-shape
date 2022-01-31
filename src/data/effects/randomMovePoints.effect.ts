@@ -10,14 +10,8 @@ export const randomMovePoints: TEffectDefinition = {
 
     return points.map(({ x, y }) =>
       Point.new(
-        x +
-          Math.round(
-            (seedRandom(`${seed}_${x}_${y}_${variation}`) - 0.5) * variation
-          ),
-        y +
-          Math.round(
-            (seedRandom(`${seed}_${x}_${y}_${variation}`) - 0.5) * variation
-          )
+        x + Math.round((seedRandom(`${seed}_${x}_${y}`) - 0.5) * variation),
+        y + Math.round((seedRandom(`${seed}_${x}_${y}`) - 0.5) * variation)
       )
     )
   },
